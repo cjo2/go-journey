@@ -1,10 +1,10 @@
-package main
+package data_structures
 
 import "fmt"
 
 type Node struct {
-	value int
-	next  *Node
+	Value int
+	Next  *Node
 }
 
 type LinkedList struct {
@@ -14,7 +14,7 @@ type LinkedList struct {
 
 func (l *LinkedList) Prepend(n *Node) {
 	temp := l.head
-	n.next = temp
+	n.Next = temp
 	l.head = n
 	l.length++
 }
@@ -24,15 +24,15 @@ func (l *LinkedList) Append(n *Node) {
 	if last == nil {
 		l.head = n
 	} else {
-		last.next = n
+		last.Next = n
 	}
 	l.length++
 }
 
 func (l *LinkedList) GetLastNode() *Node {
 	current := l.head
-	for current != nil && current.next != nil {
-		current = current.next
+	for current != nil && current.Next != nil {
+		current = current.Next
 	}
 	return current
 }
@@ -40,7 +40,7 @@ func (l *LinkedList) GetLastNode() *Node {
 func (l *LinkedList) PrintAllValues() {
 	current := l.head
 	for current != nil {
-		fmt.Println(current.value)
-		current = current.next
+		fmt.Println(current.Value)
+		current = current.Next
 	}
 }

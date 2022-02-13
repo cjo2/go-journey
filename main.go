@@ -1,10 +1,12 @@
 package main
 
+import "github.com/cjo2/go-journey/data-structures"
+
 func main() {
-	mylist := LinkedList{}
-	node1 := &Node{value: 48}
-	node2 := &Node{value: 18}
-	node3 := &Node{value: 16}
+	mylist := data_structures.LinkedList{}
+	node1 := &data_structures.Node{Value: 48}
+	node2 := &data_structures.Node{Value: 18}
+	node3 := &data_structures.Node{Value: 16}
 	mylist.Append(node1)
 	mylist.Append(node2)
 	mylist.Append(node3)
