@@ -26,24 +26,20 @@ func (l *LinkedList) Append(n *Node) {
 	} else {
 		last.next = n
 	}
+	l.length++
 }
 
 func (l *LinkedList) GetLastNode() *Node {
 	current := l.head
-	for {
-		if current == nil || current.next == nil {
-			return current
-		}
+	for current != nil && current.next != nil {
 		current = current.next
 	}
+	return current
 }
 
 func (l *LinkedList) PrintAllValues() {
 	current := l.head
-	for {
-		if current == nil {
-			return
-		}
+	for current != nil {
 		fmt.Println(current.value)
 		current = current.next
 	}
