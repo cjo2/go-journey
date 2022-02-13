@@ -55,3 +55,51 @@ func TestLinkedList_GetLastNode(t *testing.T) {
 	got = l.GetLastNode()
 	assert.Equal(t, 1, got.Value)
 }
+
+func TestLinkedList_RemoveNth(t *testing.T) {
+	l := LinkedList{}
+
+	// Attempt to remove from an empty LinkedList and return an error
+	removed, err := l.RemoveNth(1)
+	assert.Error(t, err)
+	assert.Equal(t, 0, l.length)
+
+	// Add one node, then remove it
+	l.Append(&Node{Value: 1})
+	assert.Equal(t, 1, l.head.Value)
+	assert.Equal(t, 1, l.length)
+	removed, err = l.RemoveNth(1)
+	assert.Nil(t, l.head)
+	assert.Nil(t, err)
+	assert.Equal(t, 0, l.length)
+	assert.Equal(t, 1, removed.Value)
+
+	// Add two nodes, then remove the first one
+	l = LinkedList{}
+	l.Append(&Node{Value: 1})
+	l.Append(&Node{Value: 2})
+	removed, err = l.RemoveNth(1)
+	assert.Equal(t, 1, removed.Value)
+	assert.Equal(t, 2, l.head.Value)
+	assert.Equal(t, 1, l.length)
+
+	// Add two nodes, then remove the last one
+	l = LinkedList{}
+	l.Append(&Node{Value: 1})
+	l.Append(&Node{Value: 2})
+	removed, err = l.RemoveNth(2)
+	assert.Equal(t, 2, removed.Value)
+	assert.Equal(t, 1, l.head.Value)
+	assert.Equal(t, 1, l.length)
+
+	// Add three nodes, then remove the second one
+	l = LinkedList{}
+	l.Append(&Node{Value: 1})
+	l.Append(&Node{Value: 2})
+	l.Append(&Node{Value: 3})
+	removed, err = l.RemoveNth(2)
+	assert.Equal(t, 2, removed.Value)
+	assert.Equal(t, 1, l.head.Value)
+	assert.Equal(t, 2, l.length)
+	assert.Equal(t, 3, l.GetLastNode().Value)
+}

@@ -1,6 +1,9 @@
 package data_structures
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Node struct {
 	Value int
@@ -35,6 +38,42 @@ func (l *LinkedList) GetLastNode() *Node {
 		current = current.Next
 	}
 	return current
+}
+
+// RemoveNth removes the node at the "n"th position.
+// This function counts from 1...n
+func (l *LinkedList) RemoveNth(n int) (*Node, error) {
+	if n > l.length {
+		return nil, errors.New("n is larger than LinkedList length")
+	}
+
+	if n == 1 {
+		temp := l.head
+		l.head = l.head.Next
+		temp.Next = nil
+		l.length = l.length - 1
+
+		return temp, nil
+	}
+
+	var previous *Node
+	counter := 1
+
+	current := l.head
+
+	for counter < n {
+		previous = current
+		current = current.Next
+		counter = counter + 1
+	}
+
+	toReturn := current
+	previous.Next = current.Next
+	current.Next = nil
+
+	l.length = l.length - 1
+
+	return toReturn, nil
 }
 
 func (l *LinkedList) PrintAllValues() {
