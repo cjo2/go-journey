@@ -147,3 +147,22 @@ func TestLinkedList_Pop(t *testing.T) {
 	assert.Nil(t, popped)
 
 }
+
+func TestLinkedList_GetNth(t *testing.T) {
+	l := &LinkedList{}
+	l.Append(&Node{Value: 1})
+	l.Append(&Node{Value: 2})
+	l.Append(&Node{Value: 3})
+	l.Append(&Node{Value: 4})
+
+	node, err := l.GetNth(0)
+	assert.Equal(t, 1, node.Value)
+	node, err = l.GetNth(1)
+	assert.Equal(t, 2, node.Value)
+	node, err = l.GetNth(2)
+	assert.Equal(t, 3, node.Value)
+	node, err = l.GetNth(3)
+	assert.Equal(t, 4, node.Value)
+	node, err = l.GetNth(4)
+	assert.Error(t, err)
+}

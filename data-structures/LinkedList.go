@@ -116,3 +116,17 @@ func (l *LinkedList) Pop() (*Node, error) {
 
 	return popped, nil
 }
+
+func (l *LinkedList) GetNth(n int) (*Node, error) {
+	current := l.head
+	index := 0
+	for current != nil && index <= n {
+		if index == n {
+			return current, nil
+		}
+		current = current.Next
+		index = index + 1
+	}
+
+	return nil, errors.New("n out of bounds")
+}
