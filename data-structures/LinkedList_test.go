@@ -129,3 +129,21 @@ func TestLinkedList_Reverse(t *testing.T) {
 	assert.Equal(t, 2, headNode.Next.Next.Value)
 	assert.Equal(t, 1, headNode.Next.Next.Next.Value)
 }
+
+func TestLinkedList_Pop(t *testing.T) {
+	l := &LinkedList{}
+	l.Append(&Node{Value: 1})
+	l.Append(&Node{Value: 2})
+
+	popped, _ := l.Pop()
+	assert.Equal(t, 1, popped.Value)
+	assert.Equal(t, 2, l.head.Value)
+
+	popped, _ = l.Pop()
+	assert.Equal(t, 2, popped.Value)
+
+	popped, err := l.Pop()
+	assert.Error(t, err)
+	assert.Nil(t, popped)
+
+}

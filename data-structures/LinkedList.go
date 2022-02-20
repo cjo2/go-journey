@@ -101,3 +101,18 @@ func (l *LinkedList) Reverse() {
 	}
 	l.head = reversed
 }
+
+func (l *LinkedList) Pop() (*Node, error) {
+	var popped *Node
+
+	if l.head == nil {
+		return nil, errors.New("no nodes in list")
+	}
+
+	temp := l.head.Next
+	popped = l.head
+	popped.Next = nil
+	l.head = temp
+
+	return popped, nil
+}
