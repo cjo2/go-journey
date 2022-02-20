@@ -83,3 +83,21 @@ func (l *LinkedList) PrintAllValues() {
 		current = current.Next
 	}
 }
+
+func (l *LinkedList) Reverse() {
+	var reversed *Node
+	current := l.head
+	for current != nil {
+		if reversed == nil {
+			reversed = current
+			current = current.Next
+			reversed.Next = nil
+		} else {
+			temp := current.Next
+			current.Next = reversed
+			reversed = current
+			current = temp
+		}
+	}
+	l.head = reversed
+}

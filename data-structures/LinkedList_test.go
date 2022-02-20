@@ -103,3 +103,29 @@ func TestLinkedList_RemoveNth(t *testing.T) {
 	assert.Equal(t, 2, l.length)
 	assert.Equal(t, 3, l.GetLastNode().Value)
 }
+
+func TestLinkedList_Reverse(t *testing.T) {
+	l := &LinkedList{}
+	l.Append(&Node{Value: 1})
+	l.Append(&Node{Value: 2})
+	l.Append(&Node{Value: 3})
+	l.Append(&Node{Value: 4})
+
+	headNode := l.head
+
+	assert.Equal(t, 1, headNode.Value)
+	assert.Equal(t, 2, headNode.Next.Value)
+	assert.Equal(t, 3, headNode.Next.Next.Value)
+	assert.Equal(t, 4, headNode.Next.Next.Next.Value)
+
+	l.Reverse()
+
+	// headNode points to the last Node after calling reverse
+	// so set headNode to the new head
+	headNode = l.head
+
+	assert.Equal(t, 4, headNode.Value)
+	assert.Equal(t, 3, headNode.Next.Value)
+	assert.Equal(t, 2, headNode.Next.Next.Value)
+	assert.Equal(t, 1, headNode.Next.Next.Next.Value)
+}
