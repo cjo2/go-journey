@@ -11,21 +11,21 @@ type Node struct {
 }
 
 type LinkedList struct {
-	head   *Node
+	Head   *Node
 	length int
 }
 
 func (l *LinkedList) Prepend(n *Node) {
-	temp := l.head
+	temp := l.Head
 	n.Next = temp
-	l.head = n
+	l.Head = n
 	l.length++
 }
 
 func (l *LinkedList) Append(n *Node) {
 	last := l.GetLastNode()
 	if last == nil {
-		l.head = n
+		l.Head = n
 	} else {
 		last.Next = n
 	}
@@ -33,7 +33,7 @@ func (l *LinkedList) Append(n *Node) {
 }
 
 func (l *LinkedList) GetLastNode() *Node {
-	current := l.head
+	current := l.Head
 	for current != nil && current.Next != nil {
 		current = current.Next
 	}
@@ -48,8 +48,8 @@ func (l *LinkedList) RemoveNth(n int) (*Node, error) {
 	}
 
 	if n == 1 {
-		temp := l.head
-		l.head = l.head.Next
+		temp := l.Head
+		l.Head = l.Head.Next
 		temp.Next = nil
 		l.length = l.length - 1
 
@@ -59,7 +59,7 @@ func (l *LinkedList) RemoveNth(n int) (*Node, error) {
 	var previous *Node
 	counter := 1
 
-	current := l.head
+	current := l.Head
 
 	for counter < n {
 		previous = current
@@ -77,7 +77,7 @@ func (l *LinkedList) RemoveNth(n int) (*Node, error) {
 }
 
 func (l *LinkedList) PrintAllValues() {
-	current := l.head
+	current := l.Head
 	for current != nil {
 		fmt.Println(current.Value)
 		current = current.Next
@@ -86,7 +86,7 @@ func (l *LinkedList) PrintAllValues() {
 
 func (l *LinkedList) Reverse() {
 	var reversed *Node
-	current := l.head
+	current := l.Head
 	for current != nil {
 		if reversed == nil {
 			reversed = current
@@ -99,26 +99,26 @@ func (l *LinkedList) Reverse() {
 			current = temp
 		}
 	}
-	l.head = reversed
+	l.Head = reversed
 }
 
 func (l *LinkedList) Pop() (*Node, error) {
 	var popped *Node
 
-	if l.head == nil {
+	if l.Head == nil {
 		return nil, errors.New("no nodes in list")
 	}
 
-	temp := l.head.Next
-	popped = l.head
+	temp := l.Head.Next
+	popped = l.Head
 	popped.Next = nil
-	l.head = temp
+	l.Head = temp
 
 	return popped, nil
 }
 
 func (l *LinkedList) GetNth(n int) (*Node, error) {
-	current := l.head
+	current := l.Head
 	index := 0
 	for current != nil && index <= n {
 		if index == n {
