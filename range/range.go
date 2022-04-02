@@ -35,9 +35,13 @@ func main() {
 		// Let's print the memory addresses
 		fmt.Printf("original array: %p range array: %p\n", &cars[index], &car)
 	}
+	//original array: 0xc0000ae120 range array: 0xc0000b6000
+	//original array: 0xc0000ae140 range array: 0xc0000b6000
+	//original array: 0xc0000ae160 range array: 0xc0000b6000
 
 	// Prove that we haven't changed the original slice
 	fmt.Println(cars)
+	//[{Porsche Taycan} {Porsche 718} {Porsche Macan}]
 
 	// How can we change the value of every element in the slice
 	for index, _ := range cars {
@@ -46,4 +50,5 @@ func main() {
 
 	// Result is achieved
 	fmt.Println(cars)
+	//[{Porsche Civic} {Porsche Civic} {Porsche Civic}]
 }
