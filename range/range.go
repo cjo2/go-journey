@@ -51,4 +51,12 @@ func main() {
 	// Result is achieved
 	fmt.Println(cars)
 	//[{Porsche Civic} {Porsche Civic} {Porsche Civic}]
+
+	// Change it back with slightly different range usage
+	for index, _ := range cars[:] {
+		cars[index].Model = "Taycan"
+	}
+
+	fmt.Println(cars)
+	//[{Porsche Taycan} {Porsche Taycan} {Porsche Taycan}]
 }
