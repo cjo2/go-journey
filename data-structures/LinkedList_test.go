@@ -8,17 +8,17 @@ import (
 func TestLinkedList_Prepend(t *testing.T) {
 	// Starting with a new empty list
 	l := LinkedList{}
-	l.Prepend(&Node{Value: 1})
+	l.Prepend(&LinkedListNode{Value: 1})
 	assert.Equal(t, 1, l.Head.Value)
 	assert.Equal(t, 1, l.length)
 
 	// Adding to a list with existing node
-	l.Prepend(&Node{Value: 2})
+	l.Prepend(&LinkedListNode{Value: 2})
 	assert.Equal(t, 2, l.Head.Value)
 	assert.Equal(t, 2, l.length)
 
 	// Adding to a list with existing nodes
-	l.Prepend(&Node{Value: 3})
+	l.Prepend(&LinkedListNode{Value: 3})
 	assert.Equal(t, 3, l.Head.Value)
 	assert.Equal(t, 3, l.length)
 }
@@ -27,12 +27,12 @@ func TestLinkedList_Append(t *testing.T) {
 	l := LinkedList{}
 
 	// Add a node to a list without a node
-	l.Append(&Node{Value: 1})
+	l.Append(&LinkedListNode{Value: 1})
 	assert.Equal(t, 1, l.Head.Value)
 	assert.Equal(t, 1, l.length)
 
 	// Adding a node to a list with a node
-	l.Append(&Node{Value: 2})
+	l.Append(&LinkedListNode{Value: 2})
 	assert.Equal(t, 2, l.GetLastNode().Value)
 	assert.Equal(t, 2, l.length)
 }
@@ -46,12 +46,12 @@ func TestLinkedList_GetLastNode(t *testing.T) {
 	assert.Nil(t, got)
 
 	// Adding to a list with no node at the Head
-	l.Prepend(&Node{Value: 1})
+	l.Prepend(&LinkedListNode{Value: 1})
 	got = l.GetLastNode()
 	assert.Equal(t, 1, got.Value)
 
 	// Adding to a list with existing node
-	l.Prepend(&Node{Value: 2})
+	l.Prepend(&LinkedListNode{Value: 2})
 	got = l.GetLastNode()
 	assert.Equal(t, 1, got.Value)
 }
@@ -65,7 +65,7 @@ func TestLinkedList_RemoveNth(t *testing.T) {
 	assert.Equal(t, 0, l.length)
 
 	// Add one node, then remove it
-	l.Append(&Node{Value: 1})
+	l.Append(&LinkedListNode{Value: 1})
 	assert.Equal(t, 1, l.Head.Value)
 	assert.Equal(t, 1, l.length)
 	removed, err = l.RemoveNth(1)
@@ -76,8 +76,8 @@ func TestLinkedList_RemoveNth(t *testing.T) {
 
 	// Add two nodes, then remove the first one
 	l = LinkedList{}
-	l.Append(&Node{Value: 1})
-	l.Append(&Node{Value: 2})
+	l.Append(&LinkedListNode{Value: 1})
+	l.Append(&LinkedListNode{Value: 2})
 	removed, err = l.RemoveNth(1)
 	assert.Equal(t, 1, removed.Value)
 	assert.Equal(t, 2, l.Head.Value)
@@ -85,8 +85,8 @@ func TestLinkedList_RemoveNth(t *testing.T) {
 
 	// Add two nodes, then remove the last one
 	l = LinkedList{}
-	l.Append(&Node{Value: 1})
-	l.Append(&Node{Value: 2})
+	l.Append(&LinkedListNode{Value: 1})
+	l.Append(&LinkedListNode{Value: 2})
 	removed, err = l.RemoveNth(2)
 	assert.Equal(t, 2, removed.Value)
 	assert.Equal(t, 1, l.Head.Value)
@@ -94,9 +94,9 @@ func TestLinkedList_RemoveNth(t *testing.T) {
 
 	// Add three nodes, then remove the second one
 	l = LinkedList{}
-	l.Append(&Node{Value: 1})
-	l.Append(&Node{Value: 2})
-	l.Append(&Node{Value: 3})
+	l.Append(&LinkedListNode{Value: 1})
+	l.Append(&LinkedListNode{Value: 2})
+	l.Append(&LinkedListNode{Value: 3})
 	removed, err = l.RemoveNth(2)
 	assert.Equal(t, 2, removed.Value)
 	assert.Equal(t, 1, l.Head.Value)
@@ -106,10 +106,10 @@ func TestLinkedList_RemoveNth(t *testing.T) {
 
 func TestLinkedList_Reverse(t *testing.T) {
 	l := &LinkedList{}
-	l.Append(&Node{Value: 1})
-	l.Append(&Node{Value: 2})
-	l.Append(&Node{Value: 3})
-	l.Append(&Node{Value: 4})
+	l.Append(&LinkedListNode{Value: 1})
+	l.Append(&LinkedListNode{Value: 2})
+	l.Append(&LinkedListNode{Value: 3})
+	l.Append(&LinkedListNode{Value: 4})
 
 	headNode := l.Head
 
@@ -120,7 +120,7 @@ func TestLinkedList_Reverse(t *testing.T) {
 
 	l.Reverse()
 
-	// headNode points to the last Node after calling reverse
+	// headNode points to the last LinkedListNode after calling reverse
 	// so set headNode to the new Head
 	headNode = l.Head
 
@@ -132,8 +132,8 @@ func TestLinkedList_Reverse(t *testing.T) {
 
 func TestLinkedList_Pop(t *testing.T) {
 	l := &LinkedList{}
-	l.Append(&Node{Value: 1})
-	l.Append(&Node{Value: 2})
+	l.Append(&LinkedListNode{Value: 1})
+	l.Append(&LinkedListNode{Value: 2})
 
 	popped, _ := l.Pop()
 	assert.Equal(t, 1, popped.Value)
@@ -150,10 +150,10 @@ func TestLinkedList_Pop(t *testing.T) {
 
 func TestLinkedList_GetNth(t *testing.T) {
 	l := &LinkedList{}
-	l.Append(&Node{Value: 1})
-	l.Append(&Node{Value: 2})
-	l.Append(&Node{Value: 3})
-	l.Append(&Node{Value: 4})
+	l.Append(&LinkedListNode{Value: 1})
+	l.Append(&LinkedListNode{Value: 2})
+	l.Append(&LinkedListNode{Value: 3})
+	l.Append(&LinkedListNode{Value: 4})
 
 	node, err := l.GetNth(0)
 	assert.Equal(t, 1, node.Value)

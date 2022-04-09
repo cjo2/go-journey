@@ -8,11 +8,11 @@ import (
 
 func TestRearrange(t *testing.T) {
 	l := data_structures.LinkedList{}
-	l.Append(&data_structures.Node{Value: 1})
-	l.Append(&data_structures.Node{Value: 2})
-	l.Append(&data_structures.Node{Value: 3})
-	l.Append(&data_structures.Node{Value: 4})
-	l.Append(&data_structures.Node{Value: 5})
+	l.Append(&data_structures.LinkedListNode{Value: 1})
+	l.Append(&data_structures.LinkedListNode{Value: 2})
+	l.Append(&data_structures.LinkedListNode{Value: 3})
+	l.Append(&data_structures.LinkedListNode{Value: 4})
+	l.Append(&data_structures.LinkedListNode{Value: 5})
 
 	// Odd number length
 	node, _ := l.GetNth(0)
@@ -41,10 +41,10 @@ func TestRearrange(t *testing.T) {
 
 	// Even number length
 	l = data_structures.LinkedList{}
-	l.Append(&data_structures.Node{Value: 1})
-	l.Append(&data_structures.Node{Value: 2})
-	l.Append(&data_structures.Node{Value: 3})
-	l.Append(&data_structures.Node{Value: 4})
+	l.Append(&data_structures.LinkedListNode{Value: 1})
+	l.Append(&data_structures.LinkedListNode{Value: 2})
+	l.Append(&data_structures.LinkedListNode{Value: 3})
+	l.Append(&data_structures.LinkedListNode{Value: 4})
 
 	node, _ = l.GetNth(0)
 	assert.Equal(t, 1, node.Value)

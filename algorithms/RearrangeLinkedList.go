@@ -6,7 +6,7 @@ import (
 
 // Rearrange updates the LinkedList in-place
 func Rearrange(l datastructures.LinkedList) {
-	var rearranged *datastructures.Node
+	var rearranged *datastructures.LinkedListNode
 	fast := l.Head
 	slow := l.Head
 
@@ -20,7 +20,7 @@ func Rearrange(l datastructures.LinkedList) {
 	secondList = reverse(secondList)
 	firstList := l.Head
 
-	var current *datastructures.Node
+	var current *datastructures.LinkedListNode
 
 	for firstList != nil && secondList != nil {
 		if rearranged == nil {
@@ -54,9 +54,9 @@ func Rearrange(l datastructures.LinkedList) {
 	l.Head = rearranged
 }
 
-func reverse(node *datastructures.Node) *datastructures.Node {
+func reverse(node *datastructures.LinkedListNode) *datastructures.LinkedListNode {
 	current := node
-	var reversed *datastructures.Node
+	var reversed *datastructures.LinkedListNode
 	for current != nil {
 		temp := current.Next
 		current.Next = reversed

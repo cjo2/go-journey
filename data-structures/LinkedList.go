@@ -5,24 +5,24 @@ import (
 	"fmt"
 )
 
-type Node struct {
+type LinkedListNode struct {
 	Value int
-	Next  *Node
+	Next  *LinkedListNode
 }
 
 type LinkedList struct {
-	Head   *Node
+	Head   *LinkedListNode
 	length int
 }
 
-func (l *LinkedList) Prepend(n *Node) {
+func (l *LinkedList) Prepend(n *LinkedListNode) {
 	temp := l.Head
 	n.Next = temp
 	l.Head = n
 	l.length++
 }
 
-func (l *LinkedList) Append(n *Node) {
+func (l *LinkedList) Append(n *LinkedListNode) {
 	last := l.GetLastNode()
 	if last == nil {
 		l.Head = n
@@ -32,7 +32,7 @@ func (l *LinkedList) Append(n *Node) {
 	l.length++
 }
 
-func (l *LinkedList) GetLastNode() *Node {
+func (l *LinkedList) GetLastNode() *LinkedListNode {
 	current := l.Head
 	for current != nil && current.Next != nil {
 		current = current.Next
@@ -42,7 +42,7 @@ func (l *LinkedList) GetLastNode() *Node {
 
 // RemoveNth removes the node at the "n"th position.
 // This function counts from 1...n
-func (l *LinkedList) RemoveNth(n int) (*Node, error) {
+func (l *LinkedList) RemoveNth(n int) (*LinkedListNode, error) {
 	if n > l.length {
 		return nil, errors.New("n is larger than LinkedList length")
 	}
@@ -56,7 +56,7 @@ func (l *LinkedList) RemoveNth(n int) (*Node, error) {
 		return temp, nil
 	}
 
-	var previous *Node
+	var previous *LinkedListNode
 	counter := 1
 
 	current := l.Head
@@ -85,7 +85,7 @@ func (l *LinkedList) PrintAllValues() {
 }
 
 func (l *LinkedList) Reverse() {
-	var reversed *Node
+	var reversed *LinkedListNode
 	current := l.Head
 	for current != nil {
 		if reversed == nil {
@@ -102,8 +102,8 @@ func (l *LinkedList) Reverse() {
 	l.Head = reversed
 }
 
-func (l *LinkedList) Pop() (*Node, error) {
-	var popped *Node
+func (l *LinkedList) Pop() (*LinkedListNode, error) {
+	var popped *LinkedListNode
 
 	if l.Head == nil {
 		return nil, errors.New("no nodes in list")
@@ -117,7 +117,7 @@ func (l *LinkedList) Pop() (*Node, error) {
 	return popped, nil
 }
 
-func (l *LinkedList) GetNth(n int) (*Node, error) {
+func (l *LinkedList) GetNth(n int) (*LinkedListNode, error) {
 	current := l.Head
 	index := 0
 	for current != nil && index <= n {
