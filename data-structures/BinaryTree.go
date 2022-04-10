@@ -43,9 +43,16 @@ func (btn *BinaryTreeNode) InsertNode(node *BinaryTreeNode) error {
 	return errors.New("value already exists")
 }
 
-//func (btn *BinaryTreeNode) GetNode(value int) *BinaryTreeNode {
-//
-//}
+func (btn *BinaryTreeNode) GetNode(value int) (*BinaryTreeNode, error) {
+	if btn.Value == value {
+		return btn, nil
+	} else if value < btn.Value && btn.Left != nil {
+		return btn.Left.GetNode(value)
+	} else if value > btn.Value && btn.Right != nil {
+		return btn.Right.GetNode(value)
+	}
+	return nil, errors.New("value could not be found")
+}
 
 //func (btn *BinaryTreeNode) Remove(value int) {
 //
