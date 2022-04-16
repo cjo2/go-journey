@@ -18,7 +18,7 @@ type Contact struct {
 
 // This enables us to share data structures across our handlers
 type Server struct {
-	Contacts []Contact
+	ContactsDb []Contact
 }
 
 func main() {
@@ -35,20 +35,20 @@ func main() {
 
 func (s *Server) ParentHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
-	fmt.Fprintf(w, "Hey!")
+	fmt.Fprintf(w, "Ack")
 }
 
 func (s *Server) ContactHandler(w http.ResponseWriter, r *http.Request) {
 
-	if r.Method == "GET" {
-		json.NewEncoder(w).Encode(s.Contacts)
-	} else if r.Method == "POST" {
+	if r.Method == http.MethodGet {
+		json.NewEncoder(w).Encode(s.ContactsDb)
+	} else if r.Method == http.MethodPost {
 		request := ApiRequest{}
 		err := json.NewDecoder(r.Body).Decode(&request)
 		if err != nil {
 			fmt.Println(err)
 		}
-		s.Contacts = append(s.Contacts, Contact{FirstName: request.FirstName, LastName: request.LastName})
+		s.ContactsDb = append(s.ContactsDb, Contact{FirstName: request.FirstName, LastName: request.LastName})
 	} else {
 		http.Error(w, "generic error", 405)
 	}
