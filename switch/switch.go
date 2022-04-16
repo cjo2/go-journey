@@ -32,7 +32,7 @@ func (p *Plane) Navigate(direction string) {
 	case "right":
 		p.YPosition = p.YPosition + 1
 		fallthrough
-	case "runsbecauseoffallthrough":
+	case "always-runs-after-right-because-of-fallthrough":
 		p.XPosition = p.XPosition + 100
 	}
 }
