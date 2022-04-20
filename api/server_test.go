@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
@@ -14,8 +15,8 @@ func TestServer_ParentEndpoint(t *testing.T) {
 	assert.NoError(t, err)
 
 	handler := http.HandlerFunc(server.ParentHandler)
-	
-	handler.ServeHTTP(rr, req)
 
+	handler.ServeHTTP(rr, req)
+	fmt.Println(rr.Body)
 	assert.Equal(t, http.StatusOK, rr.Code)
 }

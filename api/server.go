@@ -3,7 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/google/uuid"
 	"net/http"
+	"sync"
 )
 
 type ApiRequest struct {
@@ -14,11 +16,13 @@ type ApiRequest struct {
 type Contact struct {
 	FirstName string
 	LastName  string
+	Id        string
 }
 
 // This enables us to share data structures across our handlers
 type Server struct {
-	ContactsDb []Contact
+	ContactsDb   []Contact
+	ContactsLock sync.Mutex
 }
 
 func main() {
@@ -41,6 +45,8 @@ func (s *Server) ParentHandler(w http.ResponseWriter, r *http.Request) {
 func (s *Server) ContactHandler(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == http.MethodGet {
+		s.ContactsLock.Lock()
+		defer s.ContactsLock.Unlock()
 		json.NewEncoder(w).Encode(s.ContactsDb)
 	} else if r.Method == http.MethodPost {
 		request := ApiRequest{}
@@ -48,7 +54,14 @@ func (s *Server) ContactHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Println(err)
 		}
-		s.ContactsDb = append(s.ContactsDb, Contact{FirstName: request.FirstName, LastName: request.LastName})
+
+		id := uuid.NewString()
+		contact := &Contact{Id: id, FirstName: request.FirstName, LastName: request.LastName}
+
+		s.ContactsLock.Lock()
+		defer s.ContactsLock.Unlock()
+
+		s.ContactsDb = append(s.ContactsDb, *contact)
 	} else {
 		http.Error(w, "generic error", 405)
 	}
