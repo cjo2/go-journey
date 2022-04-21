@@ -13,20 +13,15 @@ type ApiRequest struct {
 	LastName  string `json:"lastName"`
 }
 
-type Contact struct {
-	FirstName string
-	LastName  string
-	Id        string
-}
-
 // This enables us to share data structures across our handlers
 type Server struct {
-	ContactsDb   []Contact
+	ContactsDb   *ContactsDb
 	ContactsLock sync.Mutex
 }
 
 func main() {
 	server := &Server{}
+	server.ContactsDb = NewContactsDb()
 	http.HandleFunc("/", server.ParentHandler)
 	http.HandleFunc("/contact", server.ContactHandler)
 
@@ -47,7 +42,8 @@ func (s *Server) ContactHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		s.ContactsLock.Lock()
 		defer s.ContactsLock.Unlock()
-		json.NewEncoder(w).Encode(s.ContactsDb)
+		contacts := s.ContactsDb.GetAll()
+		json.NewEncoder(w).Encode(contacts)
 	} else if r.Method == http.MethodPost {
 		request := ApiRequest{}
 		err := json.NewDecoder(r.Body).Decode(&request)
@@ -56,12 +52,9 @@ func (s *Server) ContactHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		id := uuid.NewString()
-		contact := &Contact{Id: id, FirstName: request.FirstName, LastName: request.LastName}
-
-		s.ContactsLock.Lock()
-		defer s.ContactsLock.Unlock()
-
-		s.ContactsDb = append(s.ContactsDb, *contact)
+		fmt.Println(request)
+		contact := Contact{Id: id, FirstName: request.FirstName, LastName: request.LastName}
+		s.ContactsDb.Add(contact)
 	} else {
 		http.Error(w, "generic error", 405)
 	}
