@@ -15,15 +15,15 @@ func main() {
 	}
 
 	cars := []Car{
-		Car{
+		{
 			Make:  "Porsche",
 			Model: "Taycan",
 		},
-		Car{
+		{
 			Make:  "Porsche",
 			Model: "718",
 		},
-		Car{
+		{
 			Make:  "Porsche",
 			Model: "Macan",
 		},
